@@ -1,0 +1,30 @@
+---
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Check out repository"
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: ${{ inputs.GIT_REF }}
+        token: ${{ secrets.GIT_TOKEN }}
+        submodules: true
+
+    - uses: nixbuild/nix-quick-install-action@v26
+      with:
+        nix_version: 2.16.2
+        nix_conf: |
+          experimental-features = nix-command flakes
+          sandbox = false
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          substituters = https://cache.nixos.org/?priority=40
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+          builders-use-substitutes = true
+
+    - name: "Build artifact"
+      run: |
+        nix build
