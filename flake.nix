@@ -32,8 +32,6 @@
               finalImageName = "ubuntu";
               finalImageTag = "mantic-20231011";
               sha256 = "sha256-ZwRao5S9LJAb/lCojS2jNhHbMwk05GUOrYMJ5w0Miow=";
-              os = "linux";
-              arch = "aarch64";
             };
           };
 
