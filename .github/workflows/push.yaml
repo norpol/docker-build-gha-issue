@@ -25,10 +25,7 @@ jobs:
 
     - name: "Build artifact"
       run: |
-        whoami
-        env
-        ls -larht /run/containers/ || true
-        touch /tmp/auth.json
-        export XDG_RUNTIME_DIR=/tmp/
-      
-        nix build --impure
+        sudo chmod 755 /run/containers
+        sudo mkdir -p "/run/containers/$(id -u runner)"
+        sudo chown runner: "/run/containers/$(id -u runner)"
+        nix build
