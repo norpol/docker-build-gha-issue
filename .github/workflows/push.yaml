@@ -22,4 +22,8 @@ jobs:
 
     - name: "Build artifact"
       run: |
+        whoami
+        env
+        mkdir -p /run/containers/1001/ || true
+        touch /run/containers/1001/auth.json || true
         nix build
