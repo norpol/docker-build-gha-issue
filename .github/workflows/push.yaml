@@ -24,6 +24,8 @@ jobs:
       run: |
         whoami
         env
-        mkdir -p /run/containers/1001/ || true
-        touch /run/containers/1001/auth.json || true
-        nix build
+        ls -larht /run/containers/ || true
+        touch /tmp/auth.json
+        export XDG_RUNTIME_DIR=/tmp/
+      
+        nix build --impure
